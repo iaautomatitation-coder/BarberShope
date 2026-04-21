@@ -1,0 +1,60 @@
+# Firebase App Hosting config — BarberRoyal demo
+# Docs: https://firebase.google.com/docs/app-hosting/configure
+
+runConfig:
+  # Demo sizing: scale to zero when idle, cap at 1 for cost control.
+  minInstances: 0
+  maxInstances: 1
+  cpu: 1
+  memoryMiB: 512
+  concurrency: 80
+  timeoutSeconds: 60
+
+env:
+  # -------------------------------------------------------------------------
+  # PLAIN VARS (visible in Firebase console — non-secret)
+  # -------------------------------------------------------------------------
+
+  # URL de Turso (pública — no es credencial por sí sola).
+  - variable: TURSO_DATABASE_URL
+    value: libsql://barbershope-iaautomatitation-coder.aws-us-east-1.turso.io
+    availability:
+      - BUILD
+      - RUNTIME
+
+  # Usuario de Basic Auth para /admin (el password sí es secret).
+  - variable: DEMO_USER
+    value: admin
+    availability:
+      - RUNTIME
+
+  # Brand + theme activos.
+  - variable: NEXT_PUBLIC_BRAND
+    value: obsidian
+    availability:
+      - BUILD
+      - RUNTIME
+
+  # Prisma lee DATABASE_URL al inicializar — le damos un stub válido.
+  # En runtime, el adapter libSQL lo sobrescribe cuando TURSO_DATABASE_URL está set.
+  - variable: DATABASE_URL
+    value: file:/tmp/stub.db
+    availability:
+      - BUILD
+      - RUNTIME
+
+  # -------------------------------------------------------------------------
+  # SECRETS (cargados desde Google Secret Manager)
+  # Crear con: firebase apphosting:secrets:set <NAME>
+  # -------------------------------------------------------------------------
+
+  - variable: TURSO_AUTH_TOKEN
+    secret: TURSO_AUTH_TOKEN
+    availability:
+      - BUILD
+      - RUNTIME
+
+  - variable: DEMO_PASS
+    secret: DEMO_PASS
+    availability:
+      - RUNTIME

@@ -1,0 +1,19 @@
+{
+  "apphosting": {
+    "source": ".",
+    "ignore": [
+      "node_modules",
+      ".git",
+      "firebase-debug.log",
+      "firebase-debug.*.log",
+      ".env",
+      ".env.*",
+      "!.env.example",
+      "dev.log",
+      "prod.log",
+      ".next",
+      "custom.db",
+      "custom.db-journal"
+    ]
+  }
+}

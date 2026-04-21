@@ -1,0 +1,13 @@
+node_modules/
+.next/
+.env
+.env.local
+.env*.local
+*.log
+dev.log
+prod.log
+server.log
+custom.db
+custom.db-journal
+.DS_Store
+.firebase/
