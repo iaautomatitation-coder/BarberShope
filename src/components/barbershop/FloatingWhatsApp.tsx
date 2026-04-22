@@ -8,7 +8,7 @@ export default function FloatingWhatsApp() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    fetch('/api/barbershop')
+    fetch('/api/barbershop', { cache: 'no-store' })
       .then(r => r.json())
       .then(d => {
         if (d.whatsapp) {

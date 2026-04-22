@@ -1,6 +1,11 @@
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
+// Ensure this route never gets statically rendered — admin edits must
+// be visible on the public site immediately after saving.
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function GET() {
   try {
     const shop = await db.barbershop.findFirst();

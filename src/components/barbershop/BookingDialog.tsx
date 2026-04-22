@@ -44,9 +44,9 @@ export default function BookingDialog({ open, onClose }: { open: boolean; onClos
 
   useEffect(() => {
     if (!open) return;
-    fetch('/api/services?active=true').then(r => r.json()).then(d => setServices(Array.isArray(d) ? d : [])).catch(() => {});
-    fetch('/api/barbers?active=true').then(r => r.json()).then(d => setBarbers(Array.isArray(d) ? d : [])).catch(() => {});
-    fetch('/api/barbershop').then(r => r.json()).then(d => setShop(d)).catch(() => {});
+    fetch('/api/services?active=true', { cache: 'no-store' }).then(r => r.json()).then(d => setServices(Array.isArray(d) ? d : [])).catch(() => {});
+    fetch('/api/barbers?active=true', { cache: 'no-store' }).then(r => r.json()).then(d => setBarbers(Array.isArray(d) ? d : [])).catch(() => {});
+    fetch('/api/barbershop', { cache: 'no-store' }).then(r => r.json()).then(d => setShop(d)).catch(() => {});
   }, [open]);
 
   useEffect(() => {

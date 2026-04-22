@@ -2,9 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { getBrand } from '@/config';
+import { useBarbershop, preferDb } from '@/lib/use-barbershop';
 
 export default function Navbar({ onBook }: { onBook?: () => void }) {
   const brand = getBrand();
+  const shop = useBarbershop();
+  const shopName = preferDb(shop.name, brand.name);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -33,7 +36,7 @@ export default function Navbar({ onBook }: { onBook?: () => void }) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={brand.logo}
-              alt={brand.name}
+              alt={shopName}
               className="h-7 w-7 sm:h-8 sm:w-8 object-contain"
             />
             <div className="leading-tight flex items-baseline gap-3">
@@ -41,7 +44,7 @@ export default function Navbar({ onBook }: { onBook?: () => void }) {
                 className="font-brand-serif uppercase text-brand-text text-base sm:text-lg"
                 style={{ letterSpacing: 'var(--brand-display-tracking)' }}
               >
-                {brand.name}
+                {shopName}
               </span>
               <span className="hidden md:inline text-[9px] uppercase tracking-[0.3em] text-brand-text-subtle">
                 Ed. 01

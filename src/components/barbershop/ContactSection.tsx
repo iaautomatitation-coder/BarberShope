@@ -35,7 +35,7 @@ export default function ContactSection({ onBook }: { onBook: () => void }) {
   });
 
   useEffect(() => {
-    fetch('/api/barbershop')
+    fetch('/api/barbershop', { cache: 'no-store' })
       .then((r) => r.json())
       .then((data) => setShop(data))
       .catch(() => {});

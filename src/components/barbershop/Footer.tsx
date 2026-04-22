@@ -1,10 +1,17 @@
 'use client';
 
 import { getBrand } from '@/config';
+import { useBarbershop, preferDb } from '@/lib/use-barbershop';
 
 export default function Footer() {
   const brand = getBrand();
+  const shop = useBarbershop();
   const currentYear = new Date().getFullYear();
+
+  const name = preferDb(shop.name, brand.name);
+  const address = preferDb(shop.address, brand.contact.address ?? '');
+  const phone = preferDb(shop.phone, brand.contact.phone ?? '');
+  const email = preferDb(shop.email, brand.contact.email ?? '');
 
   return (
     <footer className="relative bg-brand-bg-elevated border-t border-brand-border pb-28 md:pb-0">
@@ -25,13 +32,13 @@ export default function Footer() {
           <div className="md:col-span-4">
             <div className="flex items-center gap-3 mb-5">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={brand.logo} alt={brand.name} className="h-8 w-8 object-contain" />
+              <img src={brand.logo} alt={name} className="h-8 w-8 object-contain" />
               <div>
                 <div
                   className="text-brand-text font-brand-serif uppercase text-base"
                   style={{ letterSpacing: 'var(--brand-display-tracking)' }}
                 >
-                  {brand.name}
+                  {name}
                 </div>
                 <div className="text-[9px] uppercase tracking-[0.3em] text-brand-accent">
                   Edición 01
@@ -64,12 +71,12 @@ export default function Footer() {
               Estudio
             </h4>
             <address className="not-italic space-y-1.5 text-sm text-brand-text-muted">
-              {brand.contact.address && <div>{brand.contact.address}</div>}
-              {brand.contact.phone && <div>{brand.contact.phone}</div>}
-              {brand.contact.email && (
+              {address && <div>{address}</div>}
+              {phone && <div>{phone}</div>}
+              {email && (
                 <div>
-                  <a href={`mailto:${brand.contact.email}`} className="hover:text-brand-text transition-colors">
-                    {brand.contact.email}
+                  <a href={`mailto:${email}`} className="hover:text-brand-text transition-colors">
+                    {email}
                   </a>
                 </div>
               )}
@@ -79,7 +86,7 @@ export default function Footer() {
 
         <div className="border-t border-brand-border py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-brand-text-subtle text-[10px] uppercase tracking-[0.3em]">
-            © {currentYear} {brand.name}. Todos los derechos reservados.
+            © {currentYear} {name}. Todos los derechos reservados.
           </p>
           <p className="text-brand-text-subtle text-[10px] uppercase tracking-[0.3em]">
             Operado por Barber Rollar · CDMX
